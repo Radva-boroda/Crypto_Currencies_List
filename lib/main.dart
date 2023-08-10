@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'features/crypto_list/widgets/crypto_list.dart';
 
 void main() {
   runApp(const CryptoCurrenciesListApp());
@@ -40,69 +40,12 @@ class CryptoCurrenciesListApp extends StatelessWidget {
         ),
       ),
       routes: {
-        '/' : (context) =>  CryptoListScreen(title: 'Flutter Demo Home Page'),
+        '/' : (context) =>  CryptoListScreen(),
         '/coin' : (context) =>  CryptoCoinScreen(),
       },
     );
   }
 }
-
-class CryptoListScreen extends StatefulWidget {
-  const CryptoListScreen({super.key, required this.title});
-  final String title;
-
-  @override
-  State<CryptoListScreen> createState() => _CryptoListScreenState();
-}
-
-class _CryptoListScreenState extends State<CryptoListScreen> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('CryptoCurrenciesList'),
-      ),
-      body: ListView.separated(
-        itemCount: 10,
-          separatorBuilder: (context, index) => const Divider(),
-          itemBuilder: (context, i) {
-          const  coinName = 'Bitcoin';
-       return ListTile(
-            leading: SvgPicture.asset('assets/svg/bitcoin_logo.svg',
-              height: 30,
-              width: 30,
-            ),
-            title: Text(
-              'Bitcoin',
-              style: theme.textTheme.bodyMedium,
-            ),
-            subtitle: Text(
-              '20000\$',
-              style: theme.textTheme.labelSmall,
-            ),
-            trailing: const Icon(
-              Icons.arrow_forward_ios),
-            onTap: () {
-              Navigator.of(context).pushNamed(
-              '/coin',arguments: coinName,);
-              },
-         );
-       },
-      ),
-    );
-  }
-}
-
-
 class CryptoCoinScreen extends StatefulWidget {
   const CryptoCoinScreen({super.key});
 
