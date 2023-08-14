@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import '../../../main.dart';
+import '../../crypto_coin/view/crypto_coin_screen.dart';
 
 
 class CryptoListScreen extends StatefulWidget {
