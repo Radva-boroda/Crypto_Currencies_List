@@ -1,5 +1,3 @@
-
-
 import 'package:crypt/router/router.dart';
 import 'package:crypt/theme/theme.dart';
 import 'package:flutter/cupertino.dart';
