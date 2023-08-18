@@ -4,7 +4,7 @@ import '../models/crypto_coin.dart';
 class CryptoCoinsRepository {
   Future<List<CryptoCoin>> getCoinsList() async {
     final response = await Dio().get(
-      'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETN,BNB,BANCA&tsyms=USD,EUR');
+      'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,ETC,BNB,TRX,DOGE,SHIB,WIN&tsyms=USD,EUR');
 
     final data = response.data as Map<String, dynamic>;
     final dataRaw = data['RAW'] as Map<String, dynamic>;
