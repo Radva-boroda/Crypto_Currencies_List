@@ -6,4 +6,5 @@ class CryptoListInitial extends CryptoListState {}
 
 class CryptoListLoading extends CryptoListState{}
 
+
 class CryptoListLoaded extends CryptoListState {}
