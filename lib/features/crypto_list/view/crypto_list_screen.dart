@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:crypt/features/crypto_list/bloc/crypto_list_bloc.dart';
 import 'package:crypt/repositories/crypto_coins/abstarct_coins_repository.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +36,13 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
         appBar: AppBar(
           title: const Text('Crypto List'),
         ),
-        body: BlocBuilder<CryptoListBloc, CryptoListState>(
+        body: RefreshIndicator(
+          onRefresh: () async {
+            final completer = Completer();
+           _cryptoListBloc.add(LoadCryptoList(completer: completer));
+           return completer.future;
+            },
+          child: BlocBuilder<CryptoListBloc,CryptoListState>(
           bloc: _cryptoListBloc,
           builder: (context, state) {
             if (state is CryptoListLoaded) {
@@ -63,6 +71,11 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
                       'Please try againg later',
                       style: theme.textTheme.labelSmall?.copyWith(fontSize:16),
                     ),
+                    const SizedBox(height: 30),
+                    TextButton(onPressed: (){
+                      _cryptoListBloc.add(LoadCryptoList());
+                    },
+                        child: const Text('Try aging')),
                   ],
                 ),
               );
@@ -70,6 +83,7 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
             return const Center(child: CircularProgressIndicator());
           },
         )
+    ),
     );
   }
 }
