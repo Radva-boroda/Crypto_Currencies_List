@@ -1,3 +1,4 @@
+
 import 'package:crypt/repositories/crypto_coins/abstarct_coins_repository.dart';
 import 'package:dio/dio.dart';
 import '../models/crypto_coin.dart';
@@ -17,17 +18,23 @@ class CryptoCoinsRepository implements AbstractCoinsRepository {
 
     final data = response.data as Map<String, dynamic>;
     final dataRaw = data['RAW'] as Map<String, dynamic>;
-    final cryptoCoinsList = dataRaw.entries.map((e) {
-          final usdData =
-          (e.value as Map<String, dynamic>)['USD'] as Map<String, dynamic>;
-          final price = usdData['PRICE'];
-          final imageUrl = usdData['IMAGEURL'];
-          return CryptoCoin(
-              name: e.key,
-              priceInUSD: price,
-              imageUrl:  'https://www.cryptocompare.com/$imageUrl',
-          );
-        }).toList();
-    return cryptoCoinsList;
+    final coinData = dataRaw[currencyCode] as Map<String, dynamic>;
+    final usdData = coinData['USD'] as Map<String, dynamic>;
+    final price = usdData['PRICE'];
+    final imageUrl = usdData['IMAGEURL'];
+    final toSymbol = usdData['TOSYMBOL'];
+    final lastUpdate = usdData['LASTUPDATE'];
+    final hight24Hour = usdData['HIGH24HOUR'];
+    final low24Hour = usdData['LOW24HOUR'];
+
+    return CryptoCoinDetail(
+      name: currencyCode,
+      priceInUSD: price,
+      imageUrl: 'https://www.cryptocompare.com/$imageUrl',
+      toSymbol: toSymbol,
+      lastUpdate: DateTime.fromMillisecondsSinceEpoch(lastUpdate),
+      hight24Hour: hight24Hour,
+      low24Hour: low24Hour,
+    );
   }
 }

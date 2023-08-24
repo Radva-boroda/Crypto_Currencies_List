@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'crypto_currencies_list_app.dart';
 
+
 void main() {
+  final talker = TalkerFlutter.init();
   GetIt.I.registerLazySingleton<AbstractCoinsRepository>
     (() => CryptoCoinsRepository(dio: Dio()),
   );
