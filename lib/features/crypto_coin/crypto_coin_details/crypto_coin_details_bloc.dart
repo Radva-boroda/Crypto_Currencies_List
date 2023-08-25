@@ -23,7 +23,7 @@ class CryptoCoinDetailsBloc extends
       final coinDetails =
           await coinsRepository.getCoinsDetails(event.currencyCode);
 
-      emit(CryptoCoinDetailsLoaded(coin Details));
+      emit(CryptoCoinDetailsLoaded(coinDetails));
     } catch (e) {
       emit(CryptoCoinDetailsLoadingFailure(e));
     }
