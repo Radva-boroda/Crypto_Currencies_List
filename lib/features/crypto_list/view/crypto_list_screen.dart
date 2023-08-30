@@ -5,6 +5,7 @@ import 'package:crypt/repositories/crypto_coins/abstarct_coins_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import '../../../repositories/models/crypto_coin.dart';
 import '../widgets/crypto_coin_title.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,8 +36,24 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Crypto List'),
-        ),
-        body: RefreshIndicator(
+          actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => TalkerScreen(
+                    talker: GetIt.I<Talker> (),
+                  ),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.document_scanner_outlined,
+            ),
+          )
+        ],
+      ),
+      body: RefreshIndicator(
           onRefresh: () async {
             final completer = Completer();
            _cryptoListBloc.add(LoadCryptoList(completer: completer));
