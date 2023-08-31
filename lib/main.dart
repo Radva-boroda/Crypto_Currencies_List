@@ -18,7 +18,8 @@ void main() {
   GetIt.I<Talker>().debug('Talker starter...');
 
   final dio = Dio();
-  dio.interceptors.add(TalkerDioLogger(
+  dio.interceptors.add(
+    TalkerDioLogger(
     settings: const TalkerDioLoggerSettings(
       printResponseData: false,
       ),
@@ -39,7 +40,8 @@ void main() {
   FlutterError.onError =
       (details) => GetIt.I<Talker>().handle(details.exception, details.stack);
 
-runZonedGuarded(() => runApp(const CryptoCurrenciesListApp()),
-        (e, st) => GetIt.I<Talker>().handle(e, st),
-);
+runZonedGuarded(() => runApp(const CryptoCurrenciesListApp()), (e, st) {
+  GetIt.I<Talker>().handle(e, st);
+    },
+  );
 }
